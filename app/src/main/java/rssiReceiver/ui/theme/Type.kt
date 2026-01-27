@@ -1,4 +1,4 @@
-package com.example.rssi_receiver.ui.theme
+package rssiReceiver.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
