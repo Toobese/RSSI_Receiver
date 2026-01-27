@@ -1,4 +1,4 @@
-package rssiReceiver.ui.theme
+package rssi_receiver.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

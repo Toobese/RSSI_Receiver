@@ -1,4 +1,4 @@
-package rssiReceiver
+package rssi_receiver
 
 import org.junit.Assert
 import org.junit.Test
