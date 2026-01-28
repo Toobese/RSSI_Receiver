@@ -1,6 +1,7 @@
-package rssi_receiver.service
+package com.example.rssi_receiver.service
 
 import android.Manifest
+import android.R
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -15,7 +16,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
-import rssi_receiver.ble.BleRepository
+import com.example.rssi_receiver.ble.BleRepository
 
 const val TAG = "ScanService"
 
@@ -40,7 +41,7 @@ class BleScanService: Service() {
         val notification = NotificationCompat.Builder(this, "ble_channel")
             .setContentTitle("BLE scanning active")
             .setContentText("Scanning for nearby beacons")
-            .setSmallIcon(android.R.drawable.stat_sys_data_bluetooth)
+            .setSmallIcon(R.drawable.stat_sys_data_bluetooth)
             .build()
 
         createChannel()

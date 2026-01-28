@@ -1,9 +1,9 @@
-package rssi_receiver.ui
+package com.example.rssi_receiver.ui
 
 import androidx.compose.runtime.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.Text
-import rssi_receiver.viewmodel.MainViewModel
+import com.example.rssi_receiver.viewmodel.MainViewModel
 
 @Composable
 fun RssiScreen(viewModel: MainViewModel) {

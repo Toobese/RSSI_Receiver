@@ -1,4 +1,4 @@
-package rssi_receiver.ui.theme
+package com.example.rssi_receiver.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -1,4 +1,4 @@
-package rssi_receiver.viewmodel
+package com.example.rssi_receiver.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import rssi_receiver.ble.BleRepository
+import com.example.rssi_receiver.ble.BleRepository
 
 const val TAG = "MainViewModel"
 

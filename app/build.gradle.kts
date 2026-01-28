@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "rssi_receiver"
+    namespace = "com.example.rssi_receiver"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "rssi_receiver"
+        applicationId = "com.example.rssi_receiver"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

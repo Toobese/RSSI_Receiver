@@ -1,4 +1,4 @@
-package rssi_receiver.ble
+package com.example.rssi_receiver.ble
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

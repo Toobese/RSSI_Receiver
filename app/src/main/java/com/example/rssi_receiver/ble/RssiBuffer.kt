@@ -1,4 +1,4 @@
-package rssi_receiver.ble
+package com.example.rssi_receiver.ble
 
 class RssiBuffer(private val alpha: Double = 0.2) {
 
