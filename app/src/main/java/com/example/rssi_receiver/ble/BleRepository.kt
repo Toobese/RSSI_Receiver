@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BleRepository @Inject constructor() {
+class BleRepository {
     private val _rssis = MutableStateFlow<Map<String, Int>>(emptyMap())
     val rssis: StateFlow<Map<String, Int>> = _rssis
 

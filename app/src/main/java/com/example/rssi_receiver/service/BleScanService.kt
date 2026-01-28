@@ -11,6 +11,7 @@ import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -27,6 +28,10 @@ class BleScanService: Service() {
     private val callback = object : ScanCallback() {
         @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         override fun onScanResult(callbackType: Int, result: ScanResult?) {
+            Log.d(
+                TAG,
+                "APP RESULT: ${result?.device?.address} rssi=${result?.rssi}"
+            )
             result?.let {
                 Log.d(TAG, "we received a scan result: ${result.rssi} from: ${result.device.name}")
                 bleRepository.updateRssi(mac = result.device.address, rssi = result.rssi)
@@ -45,7 +50,16 @@ class BleScanService: Service() {
             .build()
 
         createChannel()
-        startForeground(1, notification)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(
+                1,
+                notification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE
+            )
+        } else {
+            startForeground(1, notification)
+        }
+
         val manager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         scanner = manager.adapter.bluetoothLeScanner
         scanner.startScan(callback)

@@ -10,9 +10,8 @@ import com.example.rssi_receiver.ble.BleRepository
 
 const val TAG = "MainViewModel"
 
-class MainViewModel @AssistedInject constructor(
-    private val bleRepository: BleRepository
-) : ViewModel() {
+class MainViewModel : ViewModel() {
+    private val bleRepository: BleRepository = BleRepository.instance
     val rssis: StateFlow<Map<String, Int>> = bleRepository.rssis
 
     init {
