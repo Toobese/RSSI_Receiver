@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rssi_receiver.service.BleScanService
+import com.example.rssi_receiver.ui.MapScreen
 import com.example.rssi_receiver.ui.RssiScreen
 import com.example.rssi_receiver.viewmodel.MainViewModel
 
@@ -65,8 +66,9 @@ class MainActivity : ComponentActivity() {
             permissionLauncher.launch(blePermissions)
         }
         setContent {
-            val viewModel: MainViewModel = viewModel()
-            RssiScreen(viewModel)
+//            val viewModel: MainViewModel = viewModel()
+//            RssiScreen(viewModel)
+            MapScreen()
         }
     }
 }

@@ -1,0 +1,14 @@
+{
+  "width": 10,
+  "height": 10,
+  "tiles": [
+    { "x": 0, "y": 0, "walkable": true },
+    { "x": 1, "y": 0, "walkable": false }
+  ],
+  "beacons": [
+    { "id": "...", "x": 2.5, "y": 3.2 }
+  ],
+  "fingerprints": [
+    { "friendlyId": 1, "x": 2.6, "y": 3.1 }
+  ]
+}
