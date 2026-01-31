@@ -13,9 +13,9 @@ data class MapEntity(
     @PrimaryKey val id: UUID,
     val width: Int,
     val height: Int,
-    val tiles: List<Tile>,
-    val beacons: List<Beacon>,
-    val fingerprints: List<FingerPrint>,
+//    val tiles: List<Tile>,
+//    val beacons: List<Beacon>,
+//    val fingerprints: List<FingerPrint>,
     )
 
 fun Map.toEntity() =
@@ -23,7 +23,4 @@ fun Map.toEntity() =
         id = id,
         width = width,
         height = height,
-        tiles = tiles,
-        beacons = beacons,
-        fingerprints = fingerprints
     )

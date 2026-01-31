@@ -1,4 +1,4 @@
-package com.example.rssi_receiver.ui
+package com.example.rssi_receiver.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

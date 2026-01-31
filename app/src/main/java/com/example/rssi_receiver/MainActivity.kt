@@ -11,12 +11,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.rssi_receiver.service.BleScanService
-import com.example.rssi_receiver.ui.MapScreen
-import com.example.rssi_receiver.ui.RssiScreen
-import com.example.rssi_receiver.viewmodel.MainViewModel
+import com.example.rssi_receiver.ui.navigation.AppNavHost
+import com.example.rssi_receiver.ui.screen.MapScreen
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
@@ -52,12 +53,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val hasPermissions =
-            blePermissions.all {
-                ContextCompat.checkSelfPermission(this, it) ==
-                        PackageManager.PERMISSION_GRANTED
-            }
-
+        val hasPermissions = blePermissions.all { ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED }
         if (hasPermissions) {
             Log.d("BLE", "BLE permissions already granted")
             startBleService()
@@ -66,9 +62,11 @@ class MainActivity : ComponentActivity() {
             permissionLauncher.launch(blePermissions)
         }
         setContent {
-//            val viewModel: MainViewModel = viewModel()
-//            RssiScreen(viewModel)
-            MapScreen()
+            val navController = rememberNavController()
+            AppNavHost(
+                navController = navController,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }
