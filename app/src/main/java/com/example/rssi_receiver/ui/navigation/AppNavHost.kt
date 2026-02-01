@@ -9,6 +9,7 @@ import androidx.navigation.toRoute
 import com.example.rssi_receiver.ui.screen.GridScreen
 import com.example.rssi_receiver.ui.screen.GridSelectionScreen
 import com.example.rssi_receiver.ui.screen.ModeSelectionScreen
+import java.util.UUID
 
 @Composable
 fun AppNavHost(
@@ -39,14 +40,14 @@ fun AppNavHost(
             GridSelectionScreen(
                 mode = route.mode,
                 onGridSelected = { gridId, mode ->
-                    navController.navigate(GridRoute(gridId = gridId, mode = mode))
+                    navController.navigate(GridRoute(gridId = gridId.toString(), mode = mode))
                 }
             )
         }
 
         composable<GridRoute> { backStackEntry ->
             val route: GridRoute = backStackEntry.toRoute()
-            GridScreen(gridId = route.gridId, mode = route.mode)
+            GridScreen(gridId = UUID.fromString(route.gridId), mode = route.mode)
         }
     }
 }

@@ -45,7 +45,7 @@ fun GridSelectionScreenContent(
             items(grids) { grid ->
                 GridRow(
                     grid = grid,
-                    onClick = { onGridSelected(grid, mode) }
+                    onClick = { onGridSelected(grid.id, mode) }
                 )
             }
         }

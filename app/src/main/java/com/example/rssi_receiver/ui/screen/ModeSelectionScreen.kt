@@ -9,17 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.example.rssi_receiver.viewmodel.ModeViewModel
 import kotlinx.serialization.Serializable
 
 @Composable
 fun ModeSelectionScreen(
     onSelectMode: (GridMode) -> Unit,
-    viewModel: ModeViewModel =
-        hiltViewModel<ModeViewModel, ModeViewModel.ModeViewModelFactory> {
-            it.create()
-        }
 ) {
     Column(Modifier.fillMaxSize().padding(12.dp)) {
         Button(

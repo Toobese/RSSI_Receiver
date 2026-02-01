@@ -17,7 +17,7 @@ import java.util.UUID
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("mapId")]
+    indices = [Index("gridId")]
 )
 data class FingerPrintEntity(
     @PrimaryKey val id: UUID,

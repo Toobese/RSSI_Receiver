@@ -11,7 +11,10 @@ interface NavigationRoute
 object ModeRoute : NavigationRoute
 
 @Serializable
-data class GridRoute(val mode: GridMode, val gridId: UUID) : NavigationRoute
+data class GridRoute(
+    val mode: GridMode,
+    val gridId: String,
+) : NavigationRoute
 
 @Serializable
 data class GridSelectionRoute(val mode: GridMode) : NavigationRoute

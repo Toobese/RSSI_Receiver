@@ -17,8 +17,9 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.compose.rememberNavController
 import com.example.rssi_receiver.service.BleScanService
 import com.example.rssi_receiver.ui.navigation.AppNavHost
-import com.example.rssi_receiver.ui.screen.MapScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
     private val blePermissions =

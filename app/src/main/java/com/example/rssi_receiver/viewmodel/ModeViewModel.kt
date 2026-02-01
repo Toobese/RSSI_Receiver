@@ -3,21 +3,19 @@ package com.example.rssi_receiver.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import com.example.rssi_receiver.ble.BleRepository
-import com.example.rssi_receiver.repository.GridRepository
-import dagger.assisted.AssistedFactory
 import com.example.rssi_receiver.core.model.Grid
-import com.example.rssi_receiver.room.entity.toEntity
+import com.example.rssi_receiver.repository.GridRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.util.UUID
+import javax.inject.Inject
 
 const val TAG = "MainViewModel"
 
-class ModeViewModel @AssistedInject constructor(
+@HiltViewModel
+class ModeViewModel @Inject constructor(
     private val gridRepository: GridRepository,
 ) : ViewModel() {
 //    private val bleRepository: BleRepository = BleRepository.instance
@@ -51,11 +49,6 @@ class ModeViewModel @AssistedInject constructor(
             )
             gridRepository.insertGrid(grid)
         }
-    }
-
-    @AssistedFactory
-    interface ModeViewModelFactory {
-        fun create(): ModeViewModel
     }
 }
 

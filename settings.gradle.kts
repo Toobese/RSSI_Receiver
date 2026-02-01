@@ -24,4 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "RSSI_receiver"
 include(":app")
- 

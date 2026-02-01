@@ -1,0 +1,247 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "8832790c1175ef9e594874df20085594",
+    "entities": [
+      {
+        "tableName": "grid",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `name` TEXT NOT NULL, `width` INTEGER NOT NULL, `height` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "product",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `gridId` BLOB NOT NULL, `name` TEXT NOT NULL, `price` REAL NOT NULL, `xCoordinate` INTEGER NOT NULL, `yCoordinate` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`gridId`) REFERENCES `grid`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gridId",
+            "columnName": "gridId",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xCoordinate",
+            "columnName": "xCoordinate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yCoordinate",
+            "columnName": "yCoordinate",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_product_gridId",
+            "unique": false,
+            "columnNames": [
+              "gridId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_product_gridId` ON `${TABLE_NAME}` (`gridId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "grid",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "gridId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "beacon",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `gridId` BLOB NOT NULL, `xCoordinate` REAL NOT NULL, `yCoordinate` REAL NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`gridId`) REFERENCES `grid`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gridId",
+            "columnName": "gridId",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xCoordinate",
+            "columnName": "xCoordinate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yCoordinate",
+            "columnName": "yCoordinate",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_beacon_gridId",
+            "unique": false,
+            "columnNames": [
+              "gridId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_beacon_gridId` ON `${TABLE_NAME}` (`gridId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "grid",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "gridId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "finger_print",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `gridId` BLOB NOT NULL, `friendlyId` INTEGER NOT NULL, `xCoordinate` REAL NOT NULL, `yCoordinate` REAL NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`gridId`) REFERENCES `grid`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gridId",
+            "columnName": "gridId",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "friendlyId",
+            "columnName": "friendlyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xCoordinate",
+            "columnName": "xCoordinate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yCoordinate",
+            "columnName": "yCoordinate",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_finger_print_gridId",
+            "unique": false,
+            "columnNames": [
+              "gridId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_finger_print_gridId` ON `${TABLE_NAME}` (`gridId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "grid",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "gridId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8832790c1175ef9e594874df20085594')"
+    ]
+  }
+}
