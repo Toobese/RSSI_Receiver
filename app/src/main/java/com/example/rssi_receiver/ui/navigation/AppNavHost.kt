@@ -41,7 +41,8 @@ fun AppNavHost(
                 mode = route.mode,
                 onGridSelected = { gridId, mode ->
                     navController.navigate(GridRoute(gridId = gridId.toString(), mode = mode))
-                }
+                },
+                onBack = onBack
             )
         }
 

@@ -11,6 +11,7 @@ import java.util.UUID
 fun GridSelectionScreen(
     mode: GridMode,
     onGridSelected: (gridId: UUID, mode: GridMode) -> Unit,
+    onBack: () -> Unit,
     modeViewModel: ModeViewModel = hiltViewModel()
     ) {
     val viewState = modeViewModel.viewState.collectAsStateWithLifecycle().value
@@ -22,7 +23,8 @@ fun GridSelectionScreen(
                 onGridSelected = onGridSelected,
                 onCreateGrid = { name, width, height ->
                     modeViewModel.createGrid(name, width, height)
-                }
+                },
+                onBack = onBack,
             )
         }
 

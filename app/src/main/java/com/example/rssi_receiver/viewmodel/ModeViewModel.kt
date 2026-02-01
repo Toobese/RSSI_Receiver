@@ -48,6 +48,8 @@ class ModeViewModel @Inject constructor(
                 beacons = emptyList()
             )
             gridRepository.insertGrid(grid)
+            val grids = gridRepository.getAllGrids()
+            viewState.update { (it as ModeViewState.Success).copy(grids = grids) }
         }
     }
 }
