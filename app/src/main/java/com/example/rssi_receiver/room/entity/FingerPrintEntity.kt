@@ -11,9 +11,9 @@ import java.util.UUID
     tableName = "finger_print",
     foreignKeys = [
         ForeignKey(
-            entity = MapEntity::class,
+            entity = GridEntity::class,
             parentColumns = ["id"],
-            childColumns = ["mapId"],
+            childColumns = ["gridId"],
             onDelete = ForeignKey.CASCADE
         )
     ],
@@ -21,7 +21,7 @@ import java.util.UUID
 )
 data class FingerPrintEntity(
     @PrimaryKey val id: UUID,
-    val mapId: UUID,
+    val gridId: UUID,
     val friendlyId: Int,
     val xCoordinate: Float,
     val yCoordinate: Float
@@ -30,7 +30,7 @@ data class FingerPrintEntity(
 fun FingerPrint.toEntity() =
     FingerPrintEntity(
         id = id,
-        mapId = mapId,
+        gridId = gridId,
         friendlyId = friendlyId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
@@ -39,7 +39,7 @@ fun FingerPrint.toEntity() =
 fun FingerPrintEntity.toExternal() =
     FingerPrint(
         id = id,
-        mapId = mapId,
+        gridId = gridId,
         friendlyId = friendlyId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,

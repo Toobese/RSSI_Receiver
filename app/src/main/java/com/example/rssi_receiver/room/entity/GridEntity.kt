@@ -4,27 +4,30 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.rssi_receiver.core.model.Beacon
 import com.example.rssi_receiver.core.model.FingerPrint
-import com.example.rssi_receiver.core.model.Map
+import com.example.rssi_receiver.core.model.Grid
 import java.util.UUID
 
-@Entity("map")
-data class MapEntity(
+@Entity("grid")
+data class GridEntity(
     @PrimaryKey val id: UUID,
     val name: String,
     val width: Int,
     val height: Int,
     )
 
-fun Map.toEntity() =
-    MapEntity(
+fun Grid.toEntity() =
+    GridEntity(
         id = id,
         name = name,
         width = width,
         height = height,
     )
 
-fun MapEntity.toExternal(beacons: List<Beacon>, fingerPrints: List<FingerPrint>): Map =
-    Map(
+fun GridEntity.toExternal(
+    beacons: List<Beacon> = emptyList(),
+    fingerPrints: List<FingerPrint> = emptyList()
+): Grid =
+    Grid(
         id = id,
         name = name,
         width = width,

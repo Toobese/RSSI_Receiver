@@ -30,13 +30,13 @@ fun AppNavHost(
         composable<ModeRoute> {
             ModeSelectionScreen(
                 onSelectMode = { mode ->
-                    navController.navigate(MapSelectionRoute(mode))
+                    navController.navigate(GridSelectionRoute(mode))
                 }
             )
         }
 
-        composable<MapSelectionRoute> { backStackEntry ->
-            val route: MapSelectionRoute = backStackEntry.toRoute()
+        composable<GridSelectionRoute> { backStackEntry ->
+            val route: GridSelectionRoute = backStackEntry.toRoute()
 
             MapSelectionScreen(
                 mode = route.mode,
@@ -48,6 +48,6 @@ fun AppNavHost(
             )
         }
 
-        composable<MapRoute> { MapScreen() }
+        composable<GridRoute> { MapScreen() }
     }
 }

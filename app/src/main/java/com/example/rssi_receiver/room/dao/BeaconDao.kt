@@ -15,6 +15,6 @@ interface BeaconDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(beacons: List<BeaconEntity>)
 
-    @Query("SELECT * FROM beacon WHERE mapId = :mapID")
-    suspend fun getAllBeaconsByMapId(mapID: UUID): List<BeaconEntity>
+    @Query("SELECT * FROM beacon WHERE gridId = :gridId")
+    suspend fun getAllBeaconsByGridId(gridId: UUID): List<BeaconEntity>
 }

@@ -11,17 +11,17 @@ import java.util.UUID
     tableName = "product",
     foreignKeys = [
         ForeignKey(
-            entity = MapEntity::class,
+            entity = GridEntity::class,
             parentColumns = ["id"],
-            childColumns = ["mapId"],
+            childColumns = ["gridId"],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("mapId")]
+    indices = [Index("gridId")]
     )
 data class ProductEntity(
     @PrimaryKey val id: UUID,
-    val mapId: UUID,
+    val gridId: UUID,
     val name: String,
     val price: Float,
     val xCoordinate: Int,
@@ -31,7 +31,7 @@ data class ProductEntity(
 fun Product.toEntity() =
     ProductEntity(
         id = id,
-        mapId = mapId,
+        gridId = gridId,
         name = name,
         price = price,
         xCoordinate = xCoordinate,
@@ -41,7 +41,7 @@ fun Product.toEntity() =
 fun ProductEntity.toExternal() =
     Product(
         id = id,
-        mapId = mapId,
+        gridId = gridId,
         name = name,
         price = price,
         xCoordinate = xCoordinate,

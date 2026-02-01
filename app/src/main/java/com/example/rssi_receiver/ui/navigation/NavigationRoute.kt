@@ -1,6 +1,6 @@
 package com.example.rssi_receiver.ui.navigation
 
-import com.example.rssi_receiver.ui.screen.MapMode
+import com.example.rssi_receiver.ui.screen.GridMode
 import kotlinx.serialization.Serializable
 
 
@@ -10,7 +10,7 @@ interface NavigationRoute
 object ModeRoute : NavigationRoute
 
 @Serializable
-object MapRoute : NavigationRoute
+object GridRoute : NavigationRoute
 
 @Serializable
-data class MapSelectionRoute(val mode: MapMode) : NavigationRoute
+data class GridSelectionRoute(val mode: GridMode) : NavigationRoute

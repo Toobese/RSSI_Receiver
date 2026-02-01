@@ -4,7 +4,7 @@ import java.util.UUID
 
 data class Beacon(
     val id: UUID,
-    val mapId: UUID,
+    val gridId: UUID,
     val xCoordinate: Float,
     val yCoordinate: Float,
 )

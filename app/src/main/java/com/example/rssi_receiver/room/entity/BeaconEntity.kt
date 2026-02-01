@@ -11,17 +11,17 @@ import java.util.UUID
     tableName = "beacon",
     foreignKeys = [
         ForeignKey(
-            entity = MapEntity::class,
+            entity = GridEntity::class,
             parentColumns = ["id"],
-            childColumns = ["mapId"],
+            childColumns = ["gridId"],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("mapId")]
+    indices = [Index("gridId")]
 )
 data class BeaconEntity(
     @PrimaryKey val id: UUID,
-    val mapId: UUID,
+    val gridId: UUID,
     val xCoordinate: Float,
     val yCoordinate: Float
 )
@@ -29,7 +29,7 @@ data class BeaconEntity(
 fun Beacon.toEntity() =
     BeaconEntity(
         id = id,
-        mapId = mapId,
+        gridId = gridId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )
@@ -37,7 +37,7 @@ fun Beacon.toEntity() =
 fun BeaconEntity.toExternal() =
     Beacon(
         id = id,
-        mapId = mapId,
+        gridId = gridId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )

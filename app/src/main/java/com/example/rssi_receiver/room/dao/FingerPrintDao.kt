@@ -15,6 +15,6 @@ interface FingerPrintDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(fingerPrints: List<FingerPrintEntity>)
 
-    @Query("SELECT * FROM finger_print WHERE mapId = :mapId")
-    suspend fun getAllFingerPrintsByMapId(mapId: UUID): List<FingerPrintEntity>
+    @Query("SELECT * FROM finger_print WHERE gridId = :gridId")
+    suspend fun getAllFingerPrintsByGridId(gridId: UUID): List<FingerPrintEntity>
 }

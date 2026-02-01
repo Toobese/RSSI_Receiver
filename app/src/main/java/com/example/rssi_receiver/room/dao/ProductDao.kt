@@ -15,6 +15,6 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(products: List<ProductEntity>)
 
-    @Query("SELECT * FROM product WHERE mapId = :mapId")
-    suspend fun getAllProductsByMapId(mapId: UUID): List<ProductEntity>
+    @Query("SELECT * FROM product WHERE gridId = :gridId")
+    suspend fun getAllProductsByGridId(gridId: UUID): List<ProductEntity>
 }
