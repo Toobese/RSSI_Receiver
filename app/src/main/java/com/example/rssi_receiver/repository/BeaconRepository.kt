@@ -9,5 +9,5 @@ import javax.inject.Inject
 
 class BeaconRepository @Inject constructor(private val beaconDao: BeaconDao) {
     suspend fun insertBeacons(beacons: List<Beacon>) = beaconDao.insertAll(beacons.map { it.toEntity() })
-    suspend fun getAllBeaconsByGridId(gridId: UUID): List<Beacon> = beaconDao.getAllBeaconsByGridId(gridId).map { it.toExternal() }
+    suspend fun getBeaconsByGridId(gridId: UUID): List<Beacon> = beaconDao.getAllBeaconsByGridId(gridId).map { it.toExternal() }
 }

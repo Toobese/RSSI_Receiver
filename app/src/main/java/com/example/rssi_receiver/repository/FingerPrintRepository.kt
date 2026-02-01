@@ -9,6 +9,6 @@ import javax.inject.Inject
 
 class FingerPrintRepository @Inject constructor(private val fingerPrintDao: FingerPrintDao) {
     suspend fun insertFingerPrints(fingerPrints: List<FingerPrint>) = fingerPrintDao.insertAll(fingerPrints.map { it.toEntity() })
-    suspend fun getAllFingerPrintsByGridId(gridId: UUID): List<FingerPrint> =
+    suspend fun getFingerPrintsByGridId(gridId: UUID): List<FingerPrint> =
         fingerPrintDao.getAllFingerPrintsByGridId(gridId).map { it.toExternal() }
 }

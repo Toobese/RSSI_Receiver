@@ -9,5 +9,5 @@ import javax.inject.Inject
 
 class ProductRepository @Inject constructor(private val productDao: ProductDao) {
     suspend fun insertProducts(products: List<Product>) = productDao.insertAll(products.map { it.toEntity() })
-    suspend fun getAllProductsByGridId(gridId: UUID): List<Product> = productDao.getAllProductsByGridId(gridId).map { it.toExternal() }
+    suspend fun getProductsByGridId(gridId: UUID): List<Product> = productDao.getAllProductsByGridId(gridId).map { it.toExternal() }
 }

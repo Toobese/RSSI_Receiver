@@ -5,8 +5,14 @@ import android.widget.GridView
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rssi_receiver.core.model.Beacon
+import com.example.rssi_receiver.core.model.FingerPrint
 import com.example.rssi_receiver.core.model.Grid
+import com.example.rssi_receiver.core.model.Product
+import com.example.rssi_receiver.repository.BeaconRepository
+import com.example.rssi_receiver.repository.FingerPrintRepository
 import com.example.rssi_receiver.repository.GridRepository
+import com.example.rssi_receiver.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,6 +25,9 @@ private const val TAG = "GridViewModel"
 @HiltViewModel
 class GridViewModel @Inject constructor(
     private val gridRepository: GridRepository,
+    private val productRepository: ProductRepository,
+    private val beaconRepository: BeaconRepository,
+    private val fingerPrintRepository: FingerPrintRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     val viewState: MutableStateFlow<GridViewState> = MutableStateFlow(GridViewState.Loading)
@@ -28,9 +37,20 @@ class GridViewModel @Inject constructor(
         Log.d(TAG, "initializing viewmodel")
         viewModelScope.launch {
             viewState.update {
-                val grid = gridRepository.getGridById(gridId)
-                val products = productRepository.getProductByGridID(gridId)
-                it.success()?: GridViewState.Success(grid = grid)
+                when (val grid = gridRepository.getGridById(gridId)) {
+                    null -> it
+                    else -> {
+                        val products = productRepository.getProductsByGridId(gridId)
+                        val beacons = beaconRepository.getBeaconsByGridId(gridId)
+                        val fingerPrints = fingerPrintRepository.getFingerPrintsByGridId(gridId)
+                        it.success()?: GridViewState.Success(
+                            grid = grid,
+                            beacons = beacons,
+                            products = products,
+                            fingerPrints = fingerPrints,
+                        )
+                    }
+                }
             }
         }
     }
@@ -39,6 +59,9 @@ class GridViewModel @Inject constructor(
 sealed interface GridViewState {
     data class Success(
         val grid: Grid,
+        val beacons: List<Beacon>,
+        val fingerPrints: List<FingerPrint>,
+        val products: List<Product>,
     ) : GridViewState
 
     data object Error : GridViewState

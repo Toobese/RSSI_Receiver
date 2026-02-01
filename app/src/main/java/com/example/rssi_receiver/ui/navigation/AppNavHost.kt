@@ -48,7 +48,7 @@ fun AppNavHost(
 
         composable<GridRoute> { backStackEntry ->
             val route: GridRoute = backStackEntry.toRoute()
-            GridScreen(gridId = UUID.fromString(route.gridId), mode = route.mode)
+            GridScreen(onBack = onBack, mode = route.mode)
         }
     }
 }
