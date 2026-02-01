@@ -10,9 +10,6 @@ import java.util.UUID
 @Dao
 interface FingerPrintDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(fingerPrint: FingerPrintEntity)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(fingerPrints: List<FingerPrintEntity>)
 
     @Query("SELECT * FROM finger_print WHERE gridId = :gridId")

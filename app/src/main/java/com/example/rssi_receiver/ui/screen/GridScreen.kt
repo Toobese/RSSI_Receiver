@@ -15,13 +15,16 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.rssi_receiver.core.model.Grid
+import com.example.rssi_receiver.viewmodel.GridViewModel
 import java.util.UUID
 
 @Composable
 fun GridScreen(
     gridId: UUID,
     mode: GridMode,
+    viewModel: GridViewModel = hiltViewModel()
 ) {
     Column(
         Modifier

@@ -10,9 +10,6 @@ import java.util.UUID
 @Dao
 interface GridDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(grid: GridEntity)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(grids: List<GridEntity>)
 
     @Query("SELECT * FROM grid")

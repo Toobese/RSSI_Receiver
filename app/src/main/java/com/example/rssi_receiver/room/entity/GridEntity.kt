@@ -23,15 +23,10 @@ fun Grid.toEntity() =
         height = height,
     )
 
-fun GridEntity.toExternal(
-    beacons: List<Beacon> = emptyList(),
-    fingerPrints: List<FingerPrint> = emptyList()
-): Grid =
+fun GridEntity.toExternal(): Grid =
     Grid(
         id = id,
         name = name,
         width = width,
         height = height,
-        beacons = beacons,
-        fingerprints = fingerPrints,
     )

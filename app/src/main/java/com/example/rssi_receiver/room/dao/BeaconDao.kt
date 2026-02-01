@@ -10,9 +10,6 @@ import java.util.UUID
 @Dao
 interface BeaconDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(beacon: BeaconEntity)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(beacons: List<BeaconEntity>)
 
     @Query("SELECT * FROM beacon WHERE gridId = :gridId")

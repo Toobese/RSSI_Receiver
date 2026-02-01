@@ -7,6 +7,4 @@ data class Grid(
     val name: String,
     val width: Int,
     val height: Int,
-    val beacons: List<Beacon>,
-    val fingerprints: List<FingerPrint>,
 )

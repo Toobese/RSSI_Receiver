@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
-const val TAG = "MainViewModel"
+private const val TAG = "MainViewModel"
 
 @HiltViewModel
 class ModeViewModel @Inject constructor(
@@ -44,10 +44,8 @@ class ModeViewModel @Inject constructor(
                 name = name,
                 width = width,
                 height = height,
-                fingerprints = emptyList(),
-                beacons = emptyList()
             )
-            gridRepository.insertGrid(grid)
+            gridRepository.insertGrids(listOf(grid))
             val grids = gridRepository.getAllGrids()
             viewState.update { (it as ModeViewState.Success).copy(grids = grids) }
         }
