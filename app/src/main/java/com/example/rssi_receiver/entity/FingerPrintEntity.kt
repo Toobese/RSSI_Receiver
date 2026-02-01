@@ -8,6 +8,7 @@ import com.example.rssi_receiver.core.model.FingerPrint
 import java.util.UUID
 
 @Entity(
+    tableName = "finger_print",
     foreignKeys = [
         ForeignKey(
             entity = MapEntity::class,

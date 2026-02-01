@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.example.rssi_receiver.core.model.Product
 import java.util.UUID
 
 @Entity(
@@ -12,7 +13,7 @@ import java.util.UUID
         ForeignKey(
             entity = MapEntity::class,
             parentColumns = ["id"],
-            childColumns = ["routeId"],
+            childColumns = ["mapId"],
             onDelete = ForeignKey.CASCADE
         )
     ],
@@ -20,9 +21,29 @@ import java.util.UUID
     )
 data class ProductEntity(
     @PrimaryKey val id: UUID,
-    val routeId: UUID,
+    val mapId: UUID,
     val name: String,
     val price: Float,
     val xCoordinate: Int,
     val yCoordinate: Int,
 )
+
+fun Product.toEntity() =
+    ProductEntity(
+        id = id,
+        mapId = mapId,
+        name = name,
+        price = price,
+        xCoordinate = xCoordinate,
+        yCoordinate = yCoordinate,
+    )
+
+fun ProductEntity.toExternal() =
+    Product(
+        id = id,
+        mapId = mapId,
+        name = name,
+        price = price,
+        xCoordinate = xCoordinate,
+        yCoordinate = yCoordinate,
+    )

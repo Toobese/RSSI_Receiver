@@ -8,6 +8,7 @@ import com.example.rssi_receiver.core.model.Beacon
 import java.util.UUID
 
 @Entity(
+    tableName = "beacon",
     foreignKeys = [
         ForeignKey(
             entity = MapEntity::class,
