@@ -2,13 +2,12 @@ package com.example.rssi_receiver.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.rssi_receiver.ui.screen.MapScreen
-import com.example.rssi_receiver.ui.screen.MapSelectionScreen
+import com.example.rssi_receiver.ui.screen.GridScreen
+import com.example.rssi_receiver.ui.screen.GridSelectionScreen
 import com.example.rssi_receiver.ui.screen.ModeSelectionScreen
 
 @Composable
@@ -37,17 +36,17 @@ fun AppNavHost(
 
         composable<GridSelectionRoute> { backStackEntry ->
             val route: GridSelectionRoute = backStackEntry.toRoute()
-
-            MapSelectionScreen(
+            GridSelectionScreen(
                 mode = route.mode,
-//                onMapSelect = {
-//                    navController.navigate(MapRoute) {
-//                        popUpTo(ModeRoute) { inclusive = false }
-//                    }
-//                }
+                onGridSelected = { gridId, mode ->
+                    navController.navigate(GridRoute(gridId = gridId, mode = mode))
+                }
             )
         }
 
-        composable<GridRoute> { MapScreen() }
+        composable<GridRoute> { backStackEntry ->
+            val route: GridRoute = backStackEntry.toRoute()
+            GridScreen(gridId = route.gridId, mode = route.mode)
+        }
     }
 }

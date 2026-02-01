@@ -12,7 +12,7 @@ private const val TAG = "GridRepository"
 class GridRepository @Inject constructor(
     private val gridDao: GridDao,
 ) {
-    suspend fun createGrid(grid: Grid) {
+    suspend fun insertGrid(grid: Grid) {
         Log.d(TAG, "createGrid: $grid")
         gridDao.insert(grid.toEntity())
     }

@@ -10,21 +10,46 @@ import com.example.rssi_receiver.ble.BleRepository
 import com.example.rssi_receiver.repository.GridRepository
 import dagger.assisted.AssistedFactory
 import com.example.rssi_receiver.core.model.Grid
+import com.example.rssi_receiver.room.entity.toEntity
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
+import java.util.UUID
 
 const val TAG = "MainViewModel"
 
 class ModeViewModel @AssistedInject constructor(
     private val gridRepository: GridRepository,
 ) : ViewModel() {
-    private val bleRepository: BleRepository = BleRepository.instance
-    val rssis: StateFlow<Map<String, Int>> = bleRepository.rssis
+//    private val bleRepository: BleRepository = BleRepository.instance
+//    val rssis: StateFlow<Map<String, Int>> = bleRepository.rssis
+
+    val viewState: MutableStateFlow<ModeViewState> = MutableStateFlow(ModeViewState.Loading)
 
     init {
         Log.d(TAG, "initializing viewmodel")
         viewModelScope.launch {
-            rssis.collect { rssiMap ->
-                Log.d(TAG, "new rssi")
+            viewState.update {
+                val grids = gridRepository.getAllGrids()
+                it.success()?: ModeViewState.Success(grids = grids)
             }
+
+//            rssis.collect { rssiMap ->
+//                Log.d(TAG, "new rssi")
+//            }
+        }
+    }
+
+    fun createGrid(name: String, width: Int, height: Int) {
+        viewModelScope.launch {
+            val grid = Grid(
+                id = UUID.randomUUID(),
+                name = name,
+                width = width,
+                height = height,
+                fingerprints = emptyList(),
+                beacons = emptyList()
+            )
+            gridRepository.insertGrid(grid)
         }
     }
 
@@ -37,5 +62,11 @@ class ModeViewModel @AssistedInject constructor(
 sealed interface ModeViewState {
     data class Success(
         val grids: List<Grid>,
-    )
+    ) : ModeViewState
+
+    data object Error : ModeViewState
+
+    data object Loading : ModeViewState
+
+    fun success(): Success? = this as? Success
 }

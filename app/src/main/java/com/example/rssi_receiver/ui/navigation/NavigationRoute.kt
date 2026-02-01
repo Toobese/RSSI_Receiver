@@ -2,6 +2,7 @@ package com.example.rssi_receiver.ui.navigation
 
 import com.example.rssi_receiver.ui.screen.GridMode
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 
 interface NavigationRoute
@@ -10,7 +11,7 @@ interface NavigationRoute
 object ModeRoute : NavigationRoute
 
 @Serializable
-object GridRoute : NavigationRoute
+data class GridRoute(val mode: GridMode, val gridId: UUID) : NavigationRoute
 
 @Serializable
 data class GridSelectionRoute(val mode: GridMode) : NavigationRoute

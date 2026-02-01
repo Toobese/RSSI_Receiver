@@ -15,9 +15,14 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.rssi_receiver.core.model.Grid
+import java.util.UUID
 
 @Composable
-fun MapScreen() {
+fun GridScreen(
+    gridId: UUID,
+    mode: GridMode,
+) {
     Column(
         Modifier
             .fillMaxSize()
