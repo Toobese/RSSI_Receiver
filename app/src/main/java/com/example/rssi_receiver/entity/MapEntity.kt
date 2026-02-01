@@ -11,16 +11,25 @@ import java.util.UUID
 @Entity("map")
 data class MapEntity(
     @PrimaryKey val id: UUID,
+    val name: String,
     val width: Int,
     val height: Int,
-//    val tiles: List<Tile>,
-//    val beacons: List<Beacon>,
-//    val fingerprints: List<FingerPrint>,
     )
 
 fun Map.toEntity() =
     MapEntity(
         id = id,
+        name = name,
         width = width,
         height = height,
+    )
+
+fun MapEntity.toExternal(beacons: List<Beacon>, fingerPrints: List<FingerPrint>): Map =
+    Map(
+        id = id,
+        name = name,
+        width = width,
+        height = height,
+        beacons = beacons,
+        fingerprints = fingerPrints,
     )

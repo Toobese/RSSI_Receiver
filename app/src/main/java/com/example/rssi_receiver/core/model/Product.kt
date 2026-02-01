@@ -4,6 +4,9 @@ import java.util.UUID
 
 data class Product(
     val id: UUID,
+    val mapId: UUID,
     val name: String,
     val price: Float,
+    val xCoordinate: Int,
+    val yCoordinate: Int,
 )
