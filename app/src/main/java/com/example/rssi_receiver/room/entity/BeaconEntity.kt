@@ -1,14 +1,14 @@
-package com.example.rssi_receiver.entity
+package com.example.rssi_receiver.room.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.rssi_receiver.core.model.Product
+import com.example.rssi_receiver.core.model.Beacon
 import java.util.UUID
 
 @Entity(
-    tableName = "product",
+    tableName = "beacon",
     foreignKeys = [
         ForeignKey(
             entity = MapEntity::class,
@@ -18,32 +18,26 @@ import java.util.UUID
         )
     ],
     indices = [Index("mapId")]
-    )
-data class ProductEntity(
+)
+data class BeaconEntity(
     @PrimaryKey val id: UUID,
     val mapId: UUID,
-    val name: String,
-    val price: Float,
-    val xCoordinate: Int,
-    val yCoordinate: Int,
+    val xCoordinate: Float,
+    val yCoordinate: Float
 )
 
-fun Product.toEntity() =
-    ProductEntity(
+fun Beacon.toEntity() =
+    BeaconEntity(
         id = id,
         mapId = mapId,
-        name = name,
-        price = price,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )
 
-fun ProductEntity.toExternal() =
-    Product(
+fun BeaconEntity.toExternal() =
+    Beacon(
         id = id,
         mapId = mapId,
-        name = name,
-        price = price,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )

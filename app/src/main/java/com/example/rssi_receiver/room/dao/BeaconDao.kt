@@ -1,10 +1,10 @@
-package com.example.rssi_receiver.dao
+package com.example.rssi_receiver.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.rssi_receiver.entity.BeaconEntity
+import com.example.rssi_receiver.room.entity.BeaconEntity
 import java.util.UUID
 
 @Dao

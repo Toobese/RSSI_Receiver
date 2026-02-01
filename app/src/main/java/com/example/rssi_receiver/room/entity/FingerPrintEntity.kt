@@ -1,4 +1,4 @@
-package com.example.rssi_receiver.entity
+package com.example.rssi_receiver.room.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
