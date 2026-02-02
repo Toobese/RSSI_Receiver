@@ -48,6 +48,7 @@ fun EditGridScreenContent(
     beacons: List<Beacon>,
     products: List<Product>,
     fingerPrints: List<FingerPrint>,
+    editMode: EditMode,
     onTileClick: (Int, Int) -> Unit,
     onChangeMode: (EditMode) -> Unit,
     onBack: () -> Unit,
@@ -99,6 +100,7 @@ fun EditGridScreenContent(
                 tileSize = TILE_SIZE,
                 panOffset = panOffset,
                 onTileClick = onTileClick,
+                fingerPrints = fingerPrints,
             )
 
             Column(
@@ -110,6 +112,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.PRODUCT_MODE) },
                     shape = CircleShape,
+                    enabled = editMode != EditMode.PRODUCT_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -120,6 +123,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.BEACON_MODE) },
                     shape = CircleShape,
+                    enabled = editMode != EditMode.BEACON_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -130,6 +134,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.FINGER_PRINT_MODE) },
                     shape = CircleShape,
+                    enabled = editMode != EditMode.FINGER_PRINT_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -140,6 +145,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.DELETE_MODE) },
                     shape = CircleShape,
+                    enabled = editMode != EditMode.DELETE_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(

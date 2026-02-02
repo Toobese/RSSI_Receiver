@@ -1,5 +1,6 @@
 package com.example.rssi_receiver.ui.screen
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,8 +29,12 @@ fun GridSelectionScreen(
             )
         }
 
-        ModeViewState.Loading -> { /* loading UI */ }
-        ModeViewState.Error -> { /* error UI */ }
+        ModeViewState.Loading -> {
+            Log.d("banaan", "we loading")
+        }
+        ModeViewState.Error -> {
+            Log.d("banaan", "we errored")
+        }
     }
 
 }

@@ -11,11 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import com.example.rssi_receiver.core.model.FingerPrint
 
 @Composable
 fun GridCanvas(
@@ -23,6 +25,7 @@ fun GridCanvas(
     gridHeight: Int,
     tileSize: Dp,
     panOffset: Offset,
+    fingerPrints: List<FingerPrint>,
     onTileClick: (Int, Int) -> Unit,
 ) {
     val tileSizePx = with(LocalDensity.current) { tileSize.toPx() }
@@ -79,6 +82,29 @@ fun GridCanvas(
                         start = Offset(0f, yPos),
                         end = Offset(gridWidthPx, yPos),
                         strokeWidth = strokeWidth
+                    )
+                }
+                fingerPrints.forEach { fingerPrint ->
+                    val centerX = (fingerPrint.xCoordinate + 0.5f) * tileSizePx
+                    val centerY = (fingerPrint.yCoordinate + 0.5f) * tileSizePx
+
+                    drawCircle(
+                        color = Color(0xFF4CAF50),
+                        radius = tileSizePx * 0.3f,
+                        center = Offset(centerX, centerY)
+                    )
+
+                    drawContext.canvas.nativeCanvas.drawText(
+                        "F",
+                        centerX,
+                        centerY + (tileSizePx * 0.12f),
+                        android.graphics.Paint().apply {
+                            color = android.graphics.Color.WHITE
+                            textSize = tileSizePx * 0.4f
+                            textAlign = android.graphics.Paint.Align.CENTER
+                            isAntiAlias = true
+                            typeface = android.graphics.Typeface.DEFAULT_BOLD
+                        }
                     )
                 }
             }

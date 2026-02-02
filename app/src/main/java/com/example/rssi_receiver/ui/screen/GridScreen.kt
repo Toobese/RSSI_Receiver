@@ -1,5 +1,6 @@
 package com.example.rssi_receiver.ui.screen
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -21,6 +22,7 @@ fun GridScreen(
                 beacons = viewState.beacons,
                 products = viewState.products,
                 fingerPrints = viewState.fingerPrints,
+                editMode = viewState.editMode,
                 onBack = onBack,
                 onChangeMode = { mode ->
                     gridViewModel.updateMode(mode)
@@ -31,7 +33,11 @@ fun GridScreen(
             )
         }
 
-        GridViewState.Loading -> { /* loading UI */ }
-        GridViewState.Error -> { /* error UI */ }
+        GridViewState.Loading -> {
+            Log.d("banaan", "we loading")
+        }
+        GridViewState.Error -> {
+            Log.d("banaan", "we errored")
+        }
     }
 }
