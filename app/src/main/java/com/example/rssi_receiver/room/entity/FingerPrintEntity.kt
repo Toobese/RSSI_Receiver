@@ -22,7 +22,6 @@ import java.util.UUID
 data class FingerPrintEntity(
     @PrimaryKey val id: UUID,
     val gridId: UUID,
-    val friendlyId: Int,
     val xCoordinate: Float,
     val yCoordinate: Float
 )
@@ -31,7 +30,6 @@ fun FingerPrint.toEntity() =
     FingerPrintEntity(
         id = id,
         gridId = gridId,
-        friendlyId = friendlyId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )
@@ -40,7 +38,6 @@ fun FingerPrintEntity.toExternal() =
     FingerPrint(
         id = id,
         gridId = gridId,
-        friendlyId = friendlyId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )

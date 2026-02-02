@@ -48,11 +48,49 @@ class GridViewModel @Inject constructor(
                             beacons = beacons,
                             products = products,
                             fingerPrints = fingerPrints,
+                            editMode = EditMode.VIEW_MODE,
                         )
                     }
                 }
             }
         }
+    }
+
+    fun onTileClick(x: Int, y: Int) {
+        val state = viewState.value.success() ?: return
+        Log.d("banaan", "${state.editMode}")
+        when (state.editMode) {
+            EditMode.FINGER_PRINT_MODE -> handleFingerPrint(x, y, state)
+            EditMode.PRODUCT_MODE -> handleProduct(x, y, state)
+            EditMode.BEACON_MODE -> handleBeacon(x, y, state)
+            EditMode.DELETE_MODE -> handleDelete(x, y, state)
+            EditMode.VIEW_MODE -> return
+        }
+    }
+
+    private fun handleFingerPrint(x: Int, y: Int, state: GridViewState.Success) {
+        Log.d("banaan", "x: $x and y: $y")
+        viewModelScope.launch {
+            val fingerPrint = FingerPrint(UUID.randomUUID(), state.grid.id, x.toFloat(), y.toFloat())
+            fingerPrintRepository.insertFingerPrints(listOf(fingerPrint))
+            viewState.update { (it as? GridViewState.Success)?.copy(fingerPrints = it.fingerPrints + fingerPrint) ?: it }
+        }
+    }
+
+    private fun handleBeacon(x: Int, y: Int, state: GridViewState.Success) {
+        Log.d("banaan", "x: $x and y: $y")
+    }
+
+    private fun handleDelete(x: Int, y: Int, state: GridViewState.Success) {
+        Log.d("banaan", "x: $x and y: $y")
+    }
+
+    private fun handleProduct(x: Int, y: Int, state: GridViewState.Success) {
+        Log.d("banaan", "x: $x and y: $y")
+    }
+
+    fun updateMode(editMode: EditMode) {
+        viewState.update { (it as? GridViewState.Success)?.copy(editMode = editMode) ?: it }
     }
 }
 
@@ -62,10 +100,19 @@ sealed interface GridViewState {
         val beacons: List<Beacon>,
         val fingerPrints: List<FingerPrint>,
         val products: List<Product>,
+        val editMode: EditMode,
     ) : GridViewState
 
     data object Error : GridViewState
     data object Loading : GridViewState
 
     fun success(): Success? = this as? Success
+}
+
+enum class EditMode {
+    VIEW_MODE,
+    PRODUCT_MODE,
+    BEACON_MODE,
+    FINGER_PRINT_MODE,
+    DELETE_MODE
 }

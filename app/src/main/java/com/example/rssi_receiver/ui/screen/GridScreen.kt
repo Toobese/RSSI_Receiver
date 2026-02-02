@@ -22,6 +22,12 @@ fun GridScreen(
                 products = viewState.products,
                 fingerPrints = viewState.fingerPrints,
                 onBack = onBack,
+                onChangeMode = { mode ->
+                    gridViewModel.updateMode(mode)
+                },
+                onTileClick = { x, y ->
+                    gridViewModel.onTileClick(x, y)
+                }
             )
         }
 

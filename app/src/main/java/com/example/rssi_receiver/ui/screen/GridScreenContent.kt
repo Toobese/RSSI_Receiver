@@ -2,8 +2,10 @@ package com.example.rssi_receiver.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,6 +37,7 @@ import com.example.rssi_receiver.core.model.Beacon
 import com.example.rssi_receiver.core.model.FingerPrint
 import com.example.rssi_receiver.core.model.Grid
 import com.example.rssi_receiver.core.model.Product
+import com.example.rssi_receiver.viewmodel.EditMode
 import com.example.rssi_receiver.viewmodel.GridViewModel
 
 private val TILE_SIZE = 40.dp
@@ -44,6 +48,8 @@ fun EditGridScreenContent(
     beacons: List<Beacon>,
     products: List<Product>,
     fingerPrints: List<FingerPrint>,
+    onTileClick: (Int, Int) -> Unit,
+    onChangeMode: (EditMode) -> Unit,
     onBack: () -> Unit,
 ) {
     var panOffset by remember { mutableStateOf(Offset.Zero) }
@@ -91,8 +97,59 @@ fun EditGridScreenContent(
                 gridWidth = grid.width,
                 gridHeight = grid.height,
                 tileSize = TILE_SIZE,
-                panOffset = panOffset
+                panOffset = panOffset,
+                onTileClick = onTileClick,
             )
+
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                FilledIconButton(
+                    onClick = { onChangeMode(EditMode.PRODUCT_MODE) },
+                    shape = CircleShape,
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.shopping_cart),
+                        contentDescription = "Open overview menu"
+                    )
+                }
+                FilledIconButton(
+                    onClick = { onChangeMode(EditMode.BEACON_MODE) },
+                    shape = CircleShape,
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.bluetooth),
+                        contentDescription = "Open overview menu"
+                    )
+                }
+                FilledIconButton(
+                    onClick = { onChangeMode(EditMode.FINGER_PRINT_MODE) },
+                    shape = CircleShape,
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.point_scan),
+                        contentDescription = "Open overview menu"
+                    )
+                }
+                FilledIconButton(
+                    onClick = { onChangeMode(EditMode.DELETE_MODE) },
+                    shape = CircleShape,
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.delete),
+                        contentDescription = "Open overview menu"
+                    )
+                }
+
+                Spacer(Modifier.height(16.dp))
+            }
         }
     }
 }
