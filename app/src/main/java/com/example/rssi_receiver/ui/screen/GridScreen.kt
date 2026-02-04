@@ -10,7 +10,6 @@ import com.example.rssi_receiver.viewmodel.ModeViewState
 
 @Composable
 fun GridScreen(
-    mode: GridMode,
     onBack: () -> Unit,
     gridViewModel: GridViewModel = hiltViewModel()
 ) {
@@ -18,18 +17,18 @@ fun GridScreen(
     when (viewState) {
         is GridViewState.Success -> {
             EditGridScreenContent(
-                grid = viewState.grid,
-                beacons = viewState.beacons,
-                products = viewState.products,
-                fingerPrints = viewState.fingerPrints,
-                editMode = viewState.editMode,
+                state = viewState,
                 onBack = onBack,
                 onChangeMode = { mode ->
                     gridViewModel.updateMode(mode)
                 },
                 onTileClick = { x, y ->
                     gridViewModel.onTileClick(x, y)
-                }
+                },
+                onDeviceSelect = { device ->
+                    gridViewModel.onDeviceSelected(device)
+                },
+                onDismiss = { gridViewModel.hideBeaconDialog() }
             )
         }
 

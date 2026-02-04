@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
+import android.bluetooth.le.ScanSettings
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
@@ -18,24 +19,48 @@ import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import com.example.rssi_receiver.ble.BleRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 const val TAG = "ScanService"
 
+@AndroidEntryPoint
 class BleScanService: Service() {
     private lateinit var scanner: BluetoothLeScanner
-    private val bleRepository = BleRepository.instance
+    @Inject
+    lateinit var bleRepository: BleRepository
 
     private val callback = object : ScanCallback() {
         @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
         override fun onScanResult(callbackType: Int, result: ScanResult?) {
-            Log.d(
-                TAG,
-                "APP RESULT: ${result?.device?.address} rssi=${result?.rssi}"
-            )
-            result?.let {
-                Log.d(TAG, "we received a scan result: ${result.rssi} from: ${result.device.name}")
-                bleRepository.updateRssi(mac = result.device.address, rssi = result.rssi)
+            result ?: return
+
+            val record = result.scanRecord
+
+            if (result.rssi >= -85) {
+                Log.d("BLE_RAW", buildString {
+                    append("mac=${result.device.address} ")
+                    append("rssi=${result.rssi} ")
+                    append("name=${result.device.name} ")
+
+//                record?.manufacturerSpecificData?.let { msd ->
+//                    for (i in 0 until msd.size()) {
+//                        val key = msd.keyAt(i)
+//                        append("mfg[$key]=${msd[key]?.toHex()} ")
+//                    }
+//                }
+
+                    record?.serviceUuids?.let {
+                        append("uuids=$it")
+                    }
+                })
             }
+
+            bleRepository.onScan(
+                mac = result.device.address,
+                rssi = result.rssi,
+                name = result.device.name
+            )
         }
     }
 
@@ -61,8 +86,9 @@ class BleScanService: Service() {
         }
 
         val manager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        val settings = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
         scanner = manager.adapter.bluetoothLeScanner
-        scanner.startScan(callback)
+        scanner.startScan(null, settings, callback)
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
@@ -84,5 +110,7 @@ class BleScanService: Service() {
                 .createNotificationChannel(channel)
         }
     }
-
 }
+
+fun ByteArray.toHex(): String =
+    joinToString("") { "%02X".format(it) }

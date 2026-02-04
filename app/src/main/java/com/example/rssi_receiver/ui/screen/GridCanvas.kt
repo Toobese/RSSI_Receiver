@@ -26,7 +26,7 @@ fun GridCanvas(
     tileSize: Dp,
     panOffset: Offset,
     fingerPrints: List<FingerPrint>,
-    onTileClick: (Int, Int) -> Unit,
+    onTileClick: (Float, Float) -> Unit,
 ) {
     val tileSizePx = with(LocalDensity.current) { tileSize.toPx() }
 
@@ -38,19 +38,9 @@ fun GridCanvas(
             .fillMaxSize()
             .pointerInput(panOffset) {
                 detectTapGestures { tapOffset ->
-
-                    val adjustedX = tapOffset.x - panOffset.x
-                    val adjustedY = tapOffset.y - panOffset.y
-
-                    val gridX = (adjustedX / tileSizePx).toInt()
-                    val gridY = (adjustedY / tileSizePx).toInt()
-
-                    if (
-                        gridX in 0 until gridWidth &&
-                        gridY in 0 until gridHeight
-                    ) {
-                        onTileClick(gridX, gridY)
-                    }
+                    val x = (tapOffset.x - panOffset.x) / tileSizePx
+                    val y = (tapOffset.y - panOffset.y) / tileSizePx
+                    onTileClick(x, y)
                 }
             }
     ) {
@@ -85,8 +75,8 @@ fun GridCanvas(
                     )
                 }
                 fingerPrints.forEach { fingerPrint ->
-                    val centerX = (fingerPrint.xCoordinate + 0.5f) * tileSizePx
-                    val centerY = (fingerPrint.yCoordinate + 0.5f) * tileSizePx
+                    val centerX = (fingerPrint.xCoordinate) * tileSizePx
+                    val centerY = (fingerPrint.yCoordinate) * tileSizePx
 
                     drawCircle(
                         color = Color(0xFF4CAF50),

@@ -34,23 +34,23 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.rssi_receiver.R
 import com.example.rssi_receiver.core.model.Beacon
+import com.example.rssi_receiver.core.model.BleDevice
 import com.example.rssi_receiver.core.model.FingerPrint
 import com.example.rssi_receiver.core.model.Grid
 import com.example.rssi_receiver.core.model.Product
 import com.example.rssi_receiver.viewmodel.EditMode
 import com.example.rssi_receiver.viewmodel.GridViewModel
+import com.example.rssi_receiver.viewmodel.GridViewState
 
 private val TILE_SIZE = 40.dp
 
 @Composable
 fun EditGridScreenContent(
-    grid: Grid,
-    beacons: List<Beacon>,
-    products: List<Product>,
-    fingerPrints: List<FingerPrint>,
-    editMode: EditMode,
-    onTileClick: (Int, Int) -> Unit,
+    state: GridViewState.Success,
+    onTileClick: (Float, Float) -> Unit,
     onChangeMode: (EditMode) -> Unit,
+    onDeviceSelect: (BleDevice) -> Unit,
+    onDismiss: () -> Unit,
     onBack: () -> Unit,
 ) {
     var panOffset by remember { mutableStateOf(Offset.Zero) }
@@ -75,7 +75,7 @@ fun EditGridScreenContent(
             }
 
             Text(
-                text = grid.name,
+                text = state.grid.name,
                 style = MaterialTheme.typography.headlineLarge,
                 modifier = Modifier.align(Alignment.Center)
             )
@@ -95,12 +95,12 @@ fun EditGridScreenContent(
                 }
         ) {
             GridCanvas(
-                gridWidth = grid.width,
-                gridHeight = grid.height,
+                gridWidth = state.grid.width,
+                gridHeight = state.grid.height,
                 tileSize = TILE_SIZE,
                 panOffset = panOffset,
                 onTileClick = onTileClick,
-                fingerPrints = fingerPrints,
+                fingerPrints = state.fingerPrints,
             )
 
             Column(
@@ -112,7 +112,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.PRODUCT_MODE) },
                     shape = CircleShape,
-                    enabled = editMode != EditMode.PRODUCT_MODE,
+                    enabled = state.editMode != EditMode.PRODUCT_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -123,7 +123,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.BEACON_MODE) },
                     shape = CircleShape,
-                    enabled = editMode != EditMode.BEACON_MODE,
+                    enabled = state.editMode != EditMode.BEACON_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -134,7 +134,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.FINGER_PRINT_MODE) },
                     shape = CircleShape,
-                    enabled = editMode != EditMode.FINGER_PRINT_MODE,
+                    enabled = state.editMode != EditMode.FINGER_PRINT_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -145,7 +145,7 @@ fun EditGridScreenContent(
                 FilledIconButton(
                     onClick = { onChangeMode(EditMode.DELETE_MODE) },
                     shape = CircleShape,
-                    enabled = editMode != EditMode.DELETE_MODE,
+                    enabled = state.editMode != EditMode.DELETE_MODE,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -157,5 +157,13 @@ fun EditGridScreenContent(
                 Spacer(Modifier.height(16.dp))
             }
         }
+    }
+
+    if (state.showCreateBeaconDialog) {
+        CreateBeaconDialog(
+            devices = state.scannedDevices,
+            onSelect = onDeviceSelect,
+            onDismiss = onDismiss,
+        )
     }
 }

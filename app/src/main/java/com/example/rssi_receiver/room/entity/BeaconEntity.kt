@@ -22,6 +22,7 @@ import java.util.UUID
 data class BeaconEntity(
     @PrimaryKey val id: UUID,
     val gridId: UUID,
+    val linkId: String,
     val xCoordinate: Float,
     val yCoordinate: Float
 )
@@ -30,6 +31,7 @@ fun Beacon.toEntity() =
     BeaconEntity(
         id = id,
         gridId = gridId,
+        linkId = linkId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )
@@ -38,6 +40,7 @@ fun BeaconEntity.toExternal() =
     Beacon(
         id = id,
         gridId = gridId,
+        linkId = linkId,
         xCoordinate = xCoordinate,
         yCoordinate = yCoordinate,
     )

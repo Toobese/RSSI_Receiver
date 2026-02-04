@@ -13,7 +13,7 @@ import com.example.rssi_receiver.room.entity.ProductEntity
 
 @Database(
     entities = [GridEntity::class, ProductEntity::class, BeaconEntity::class, FingerPrintEntity::class],
-    version = 2
+    version = 3
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun gridDao(): GridDao
